@@ -1,0 +1,56 @@
+WITH
+total_count AS (
+  SELECT
+    COUNT(*) AS total_rows
+  FROM
+    `sustained-valor-407619.powerlifting_master_data.master_table`
+)
+
+SELECT
+  COUNTIF(Name IS NULL) / MAX(total_rows) * 100 AS Name_null_perc,
+  COUNTIF(Sex IS NULL) / MAX(total_rows) * 100 AS Sex_null_perc,
+  COUNTIF(Event IS NULL) / MAX(total_rows) * 100 AS Event_null_perc,
+  COUNTIF(MeetName IS NULL) / MAX(total_rows) * 100 AS MeetName_null_perc,
+  COUNTIF(Equipment IS NULL) / MAX(total_rows) * 100 AS Equipment_null_perc,
+  COUNTIF(Age IS NULL) / MAX(total_rows) * 100 AS Age_null_perc,
+  COUNTIF(AgeClass IS NULL) / MAX(total_rows) * 100 AS AgeClass_null_perc,
+  COUNTIF(BirthYearClass IS NULL) / MAX(total_rows) * 100 AS BirthYearClass_null_perc,
+  COUNTIF(Division IS NULL) / MAX(total_rows) * 100 AS Division_null_perc,
+  COUNTIF(BodyweightKg IS NULL) / MAX(total_rows) * 100 AS BodyweightKg_null_perc,
+  COUNTIF(WeightClassKg IS NULL) / MAX(total_rows) * 100 AS WeightClassKg_null_perc,
+  COUNTIF(Squat1Kg IS NULL) / MAX(total_rows) * 100 AS Squat1kg_null_perc,
+  COUNTIF(Squat2Kg IS NULL) / MAX(total_rows) * 100 AS Squat2kg_null_perc,
+  COUNTIF(Squat3Kg IS NULL) / MAX(total_rows) * 100 AS Squat2kg_null_perc,
+  COUNTIF(Squat4Kg IS NULL) / MAX(total_rows) * 100 AS Squat4kg_null_perc,
+  COUNTIF(Best3SquatKg IS NULL) / MAX(total_rows) * 100 AS Best3SquatKg_null_perc,
+  COUNTIF(Bench1Kg IS NULL) / MAX(total_rows) * 100 AS Bench1kg_null_perc,
+  COUNTIF(Bench2Kg IS NULL) / MAX(total_rows) * 100 AS Bench2kg_null_perc,
+  COUNTIF(Bench3Kg IS NULL) / MAX(total_rows) * 100 AS Bench3kg_null_perc,
+  COUNTIF(Bench4Kg IS NULL) / MAX(total_rows) * 100 AS Bench4kg_null_perc,
+  COUNTIF(Best3BenchKg IS NULL) / MAX(total_rows) * 100 AS Best3BenchKg_null_perc,
+  COUNTIF(Deadlift1Kg IS NULL) / MAX(total_rows) * 100 AS Deadlift1kg_null_perc,
+  COUNTIF(Deadlift2Kg IS NULL) / MAX(total_rows) * 100 AS Deadlift2kg_null_perc,
+  COUNTIF(Deadlift3Kg IS NULL) / MAX(total_rows) * 100 AS Deadlift3kg_null_perc,
+  COUNTIF(Deadlift4Kg IS NULL) / MAX(total_rows) * 100 AS Deadlift4kg_null_perc,
+  COUNTIF(Best3DeadliftKg IS NULL) / MAX(total_rows) * 100 AS Best3DeadliftKg_null_perc,
+  COUNTIF(TotalKg IS NULL) / MAX(total_rows) * 100 AS TotalKg_null_perc,
+  COUNTIF(Place IS NULL) / MAX(total_rows) * 100 AS Place_null_perc,
+  COUNTIF(Dots IS NULL) / MAX(total_rows) * 100 AS Dots_null_perc,
+  COUNTIF(Wilks IS NULL) / MAX(total_rows) * 100 AS Wilks_null_perc,
+  COUNTIF(Glossbrenner IS NULL) / MAX(total_rows) * 100 AS Glossbrenner_null_perc,
+  COUNTIF(Goodlift IS NULL) / MAX(total_rows) * 100 AS Goodlift_null_perc,
+  COUNTIF(Tested IS NULL) / MAX(total_rows) * 100 AS Tested_null_perc,
+  COUNTIF(Country IS NULL) / MAX(total_rows) * 100 AS Country_null_perc,
+  COUNTIF(State IS NULL) / MAX(total_rows) * 100 AS State_null_perc,
+  COUNTIF(Federation IS NULL) / MAX(total_rows) * 100 AS Federation_null_perc,
+  COUNTIF(ParentFederation IS NULL) / MAX(total_rows) * 100 AS ParentFederation_null_perc,
+  COUNTIF(Date IS NULL) / MAX(total_rows) * 100 AS Date_null_perc,
+  COUNTIF(MeetCountry IS NULL) / MAX(total_rows) * 100 AS MeetCountry_null_perc,
+  COUNTIF(MeetState IS NULL) / MAX(total_rows) * 100 AS MeetState_null_perc,
+  COUNTIF(MeetTown IS NULL) / MAX(total_rows) * 100 AS MeetTown_null_perc,
+  COUNTIF(MeetName IS NULL) / MAX(total_rows) * 100 AS MeetName_null_perc,
+
+FROM
+  `sustained-valor-407619.powerlifting_master_data.master_table`
+CROSS JOIN
+  total_count;
