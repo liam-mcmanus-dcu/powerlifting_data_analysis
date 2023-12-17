@@ -1,0 +1,42 @@
+--First, calculate the quantiles for each weight class and sex:
+WITH Quantiles AS (
+  SELECT
+    Sex,
+    WeightclassKg,
+    APPROX_QUANTILES(Best3SquatKg, 100) AS SquatQuantiles,
+    APPROX_QUANTILES(Best3BenchKg, 100) AS BenchQuantiles,
+    APPROX_QUANTILES(Best3DeadliftKg, 100) AS DeadliftQuantiles
+  FROM
+    `sustained-valor-407619.powerlifting_master_data.master_table`
+  GROUP BY
+    Sex,
+    WeightclassKg
+)
+
+-- Then join the quantiles with the original data:
+SELECT
+  m.*,
+  (
+    SELECT
+      COUNTIF(value <= m.Best3SquatKg) 
+    FROM
+      UNNEST(q.SquatQuantiles) AS value
+  ) / GREATEST((SELECT COUNT(*) FROM UNNEST(q.SquatQuantiles)), 1) AS SquatPercentileRank,
+  (
+    SELECT
+      COUNTIF(value <= m.Best3BenchKg) 
+    FROM
+      UNNEST(q.BenchQuantiles) AS value
+  ) / GREATEST((SELECT COUNT(*) FROM UNNEST(q.BenchQuantiles)), 1) AS BenchPercentileRank,
+  (
+    SELECT
+      COUNTIF(value <= m.Best3DeadliftKg) 
+    FROM
+      UNNEST(q.DeadliftQuantiles) AS value
+  ) / GREATEST((SELECT COUNT(*) FROM UNNEST(q.DeadliftQuantiles)), 1) AS DeadliftPercentileRank
+FROM
+  `sustained-valor-407619.powerlifting_master_data.master_table` AS m
+JOIN
+  Quantiles AS q
+ON
+  m.Sex = q.Sex AND m.WeightclassKg = q.WeightclassKg
